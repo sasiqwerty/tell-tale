@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">da33df9d-510f-46b1-9744-842c538385c6</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">da33df9d-510f-46b1-9744-842c538385c6</dc:identifier>
+        <dc:title>The Tell-Tale Brain</dc:title>
+        <dc:creator opf:file-as="Ramachandran, V. S." opf:role="aut">Ramachandran, V. S.</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.31.1) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2011-01-16T21:00:00+00:00</dc:date>
+        <dc:publisher>W. W. Norton &amp; Company</dc:publisher>
+        <dc:language>en</dc:language>
+        <meta name="calibre:author_link_map" content="{}"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>
