@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    Chapter 3<br class="calibre8"><strong class="calibre9">Collecting good data</strong>
+      </h2>
+      <p class="blockquote">
+        Raw data, like raw potatoes, usually require cleaning before use.
+      </p>
+      <p class="atribution">Ronald A. Thisted</p>
+      <p class="noindent1">
+        Data provide a window to the world, but it is important that they give
+        us a clear view. A window with scratches, distortions, or with marks on
+        the glass is likely to mislead us about what lies beyond, and it is the
+        same with data. If data are distorted or corrupted in some way then
+        mistaken conclusions can easily arise. In general, not all data are of
+        high quality. Indeed, I might go further than this and suggest that it
+        is rare to meet a data set which does not have quality problems of some
+        kind, perhaps to the extent that if you encounter such a ‘perfect’ data
+        set you should be suspicious. Perhaps you should ask what preprocessing
+        the data set has been subjected to which makes it look so perfect. We
+        will return to the question of preprocessing later.
+      </p>
+      <p class="noindent1">
+        Standard textbook descriptions of statistical ideas and methods tend to
+        assume that the data have no problems (statisticians say the data are
+        ‘clean’, as opposed to ‘dirty’ or ‘messy’). This is understandable,
+        since the aim in such books is to describe the methods, and it detracts
+        from the clarity of the description to say what to do if the data are
+        not what they should be. However, this book is rather different. The aim
+        here is not to teach the mechanics of statistical methods, but rather to
+        introduce and <a id="calibre_link-105"></a>convey the flavour of the
+        real discipline. And the real discipline of statistics has to cope with
+        dirty data.
+      </p>
+      <p class="noindent1">
+        In order to develop our discussion, we need to understand what could be
+        meant by ‘bad data’, how to recognize them, and what to do about them.
+        Unfortunately, data are like people: they can ‘go bad’ in an unlimited
+        number of different ways. However, many of those ways can be classified
+        as either <em class="calibre10">incomplete</em> or
+        <em class="calibre10">incorrect</em>.
+      </p>
+      <h3 class="h2">Incomplete data</h3>
+      <p class="noindenta">
+        A data set is incomplete if some of the observations are missing. Data
+        may be randomly missing, for reasons entirely unrelated to the study.
+        For example, perhaps a chemist dropped a test tube, or a patient in a
+        clinical trial of a skin cream missed an appointment because of a
+        delayed plane, or someone moved house and so could not be contacted for
+        a follow-up questionnaire. But the fact that a data item is missing can
+        also in itself be informative. For example, people completing an
+        application form or questionnaire may wish to conceal something, and,
+        rather than lie outright, may simply not answer that question. Or
+        perhaps only people with a particular view bother to complete a
+        questionnaire. For example, if customers are asked to complete forms
+        evaluating the service they have received, those with axes to grind may
+        be more inclined to complete them. If this is not recognized in the
+        analysis, a distorted view of customers’ opinions will result. Internet
+        surveys are especially vulnerable to this kind of thing, with people
+        often simply being invited to respond. There is no control over how
+        representative the respondents are of the overall population, or even if
+        the same people respond multiple times.
+      </p>
+      <p class="noindent1">
+        Other examples of this sort of ‘selection bias’ abound, and can be quite
+        subtle. For example, it is not uncommon for patients to drop out of
+        clinical trials of medicines. Suppose that patients who recovered while
+        using the medicine failed to return for their next appointment, because
+        they felt it was unnecessary (since they had
+        <a id="calibre_link-99"></a>recovered). Then we could easily draw the
+        conclusion that the medicine did not work, since we would see only
+        patients who were still sick.
+      </p>
+      <p class="noindent1">
+        A classic case of this sort of bias arose when the
+        <em class="calibre10">Literary Digest</em> incorrectly predicted that
+        Landon would overwhelmingly defeat Roosevelt in the 1936 US presidential
+        election. Unfortunately, the questionnaires were mailed only to people
+        who had both telephones and cars, and in 1936 these people were
+        wealthier on average than the overall population. The people sent
+        questionnaires were not properly representative of the overall
+        population. As it turned out, the bulk of the others supported
+        Roosevelt.
+      </p>
+      <p class="noindent1">
+        Another, rather different kind of case of incorrect conclusions arising
+        from failure to take account of missing data has become a minor
+        statistical classic. This is the case of the
+        <em class="calibre10">Challenger</em> space shuttle, which blew up on
+        launch in 1986, killing everyone on board. The night before the launch,
+        a meeting was held to discuss whether to go ahead, since the forecast
+        temperature for the launch date was exceptionally low. Data were
+        produced showing that there was apparently no relationship between air
+        temperature and damage to certain seals on the booster rockets. However,
+        the data were incomplete, and did not include all those launches
+        involving <em class="calibre10">no</em> damage. This was unfortunate
+        because the launches when no damage occurred were predominantly made at
+        higher temperatures. A plot of <em class="calibre10">all</em> of the
+        data shows a clear relationship, with damage being more likely at lower
+        temperatures.
+      </p>
+      <p class="noindent1">
+        As a final example, people applying for bank loans, credit cards, and so
+        on, have a ‘credit score’ calculated, which is essentially an estimate
+        of the probability that they will fail to repay. These estimates are
+        derived from statistical models built (as described in
+        <a class="nounder" href="#calibre_link-25">Chapter 6</a>) using data
+        from previous customers who have already
+        <a id="calibre_link-144"></a>repaid or failed to repay. But there is a
+        problem. Previous customers are not representative of all people who
+        applied for a loan. After all, previous customers were chosen because
+        they were thought to be good risks. Those applicants thought to be
+        intrinsically poor risks and likely to default would not have been
+        accepted in the first place, and would therefore not be included in the
+        data. Any statistical model which fails to take account of this
+        distortion of the data set is likely to lead to mistaken conclusions. In
+        this case, it could well mean the bank collapsing.
+      </p>
+      <p class="noindent1">
+        If only some values are missing for each record (e.g. some of the
+        answers to a questionnaire), then there are two common elementary
+        approaches to analysis. One is simply to discard any incomplete records.
+        This has two potentially serious weaknesses. The first is that it can
+        lead to selection bias distortions of the kind discussed above. If
+        records of a particular kind are more likely to have some values
+        missing, then deleting these records will leave a distorted data set.
+        The second serious weakness is that it can lead to a dramatic reduction
+        in the size of the data set available for analysis. For example, suppose
+        a questionnaire contains 100 questions. It is entirely possible that
+        <em class="calibre10">no</em> respondent answered
+        <em class="calibre10">every</em> question, so that
+        <em class="calibre10">all</em> records may have something missing. This
+        means that dropping incomplete responses would lead to dropping all of
+        the data.
+      </p>
+      <p class="noindent1">
+        The second popular approach to handling missing values is to insert
+        substitute values. For example, suppose age is missing from some
+        records. Then we could replace the missing values by the average of the
+        ages which had been recorded. Although this results in a complete(d)
+        data set, it also has disadvantages. Essentially we would be making up
+        data.
+      </p>
+      <p class="noindent1">
+        If there is reason to suspect that the fact that a number is missing is
+        related to the value it would have had (for example, if older people are
+        less likely to give their age) then more elaborate
+        <a id="calibre_link-116"></a>statistical techniques are needed. We need
+        to construct a statistical model, perhaps of the kind discussed in
+        <a class="nounder" href="#calibre_link-25">Chapter 6</a>, of the
+        probability of being missing, as well as for the other relationships in
+        the data.
+      </p>
+      <p class="noindent1">
+        It is also worth mentioning that it is necessary to allow for the fact
+        that not all values have been recorded. It is common practice to use a
+        special symbol to indicate that a value is missing. For example, N/A,
+        for ‘not available’. But sometimes numerical codes are used, such as
+        9999 for age. In this case, failure to let the computer know that 9999
+        represents missing values can lead to a wildly inaccurate result.
+        Imagine the estimated average age when there are many values of 9999
+        included in the calculation …
+      </p>
+      <p class="noindent1">
+        In general, and perhaps this should be expected, there is no perfect
+        solution to missing data. All methods to handle it require some kind of
+        additional assumptions to be made. The best solution is to minimize the
+        problem during the data collection phase.
+      </p>
+      <h3 class="h2">Incorrect data</h3>
+      <p class="noindenta">
+        Incomplete data is one kind of data problem, but data may be
+        <em class="calibre10">incorrect</em> in any number of ways and for any
+        number of reasons. There are both high and low level reasons for such
+        problems.
+      </p>
+      <p class="noindent1">
+        One high level reason is the difficulty of deciding on suitable (and
+        universally agreed) definitions. Crime rate, referred to in
+        <a class="nounder" href="#calibre_link-8">Chapter 1</a>, provides an
+        example of this. Suicide rate provides another. Typically, suicide is a
+        solitary activity, so that no one else can know for certain that it was
+        suicide. Often a note is left, but not in all cases, and then evidence
+        must be adduced that the death was in fact suicide. This moves us to
+        murky ground, since it raises the question of what evidence is relevant
+        and how much is needed. Moreover, many suicides disguise the fact that
+        they took their own life; for example so that the family can collect on
+        the life insurance.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-47"></a>In a different, but even more complicated
+        situation, the National Patient Safety Agency in the UK is responsible
+        for collating reports of accidents which have occurred in hospitals. The
+        Agency then tries to classify them to identify commonalities, so that
+        steps can be taken to prevent accidents happening in the future. The
+        difficulty is that accidents are reported by many thousands of different
+        people, and described in different ways. Even the same incident can be
+        described very differently.
+      </p>
+      <p class="noindent1">
+        At a lower level, mistakes are often made in reading instruments or
+        recording values. For example, a common tendency in reading instruments
+        is to subconsciously round to the nearest whole number. Distributions of
+        blood pressure measurements recorded using old-fashioned
+        (non-electronic) sphygmomanometers show a clear tendency for more values
+        to be recorded at 60, 70, and 80mm of mercury than at neighbouring
+        values, such as 69 or 72. As far as recording errors go, digits may be
+        transposed (28, instead of 82); the handwritten digit 7 may be mistaken
+        for 1 (less likely in continental Europe, where 7 is written
+        <span class="strikethrough">7</span>); data may be put in the wrong
+        column on a form, so accidentally multiplying values by 10; the US style
+        of date (month/day/year) might be confused with the UK style
+        (day/month/year) or vice versa; and so on. In 1796, the Astronomer Royal
+        Nevil Maskelyne dismissed his assistant, David Kinnebrook, on the
+        grounds that the latter’s observations of the times at which a chosen
+        star crossed the meridian wire in a telescope at Greenwich were too
+        inaccurate. This mattered, because the accuracy of the clock at
+        Greenwich hinged on accurate measurements of the transit times,
+        estimates of the longitude of the nation’s ships depended on the clock,
+        and the British Empire depended on its ships. However, later
+        investigators have explained the inaccuracies in terms of psychological
+        reaction time delays and the subconscious rounding phenomenon mentioned
+        above. And, as a final example from the many I could have chosen, the
+        1970 US Census said there were 289 girls who had been both widowed and
+        divorced by the age of 14. We should also note the general point that
+        the larger the data set, the more hands involved in its
+        <a id="calibre_link-83"></a>compilation, and the more stages involved in
+        its processing, the more likely it is to contain errors.
+      </p>
+      <p class="noindent1">
+        Other low level examples of data errors often arise with units of
+        measurement, such as recording height in metres rather than feet, or
+        weight in pounds rather than kilograms. In 1999, the
+        <em class="calibre10">Climate Orbiter</em> Mars probe was lost when it
+        failed to enter the Martian atmosphere at the correct angle because of
+        confusion between pressure measurements based on pounds and on newtons.
+        In another example of confusion of units, this time in a medical
+        context, an elderly lady usually had normal blood calcium levels, in the
+        range 8.6 to 9.1, which suddenly appeared to drop to a much lower value
+        of 4.8. The nurse in charge was about to begin infusing calcium, when Dr
+        Salvatore Benvenga discovered that the apparent drop was simply because
+        the laboratory had changed the units in which it reported its results
+        (from milligrams per decilitre to milliequivalents per litre).
+      </p>
+      <h3 class="h2">Error propagation</h3>
+      <p class="noindenta">
+        Once made, errors can propagate with serious consequences. For example,
+        budget shortfalls and possible job layoffs in Northwest Indiana in 2006
+        were attributed to the effect of a mistake in just one number working
+        its way up through the system. A house that should have been valued at
+        $121,900 had its value accidentally changed to $400 million.
+        Unfortunately, this mistaken value was used in calculating tax rates.
+      </p>
+      <p class="noindent1">
+        In another case, the <em class="calibre10">Times</em> of 2 December 2004
+        reported how 66,500 of around 170,000 firms were accidentally removed
+        from a list used to compile official estimates of construction output in
+        the UK. This led to a reported fall of 2.6% in construction growth in
+        the first quarter, rather than the correct value of an increase of 0.5%,
+        followed by a reported growth of 5.3% rather than the correct 2.1% in
+        the second quarter.
+      </p>
+      <h3 class="h2">
+        <a id="calibre_link-52" class="calibre5"></a>Preprocessing
+      </h3>
+      <p class="noindenta">
+        As must be obvious from the examples above, an essential initial
+        component of any statistical analysis is a close examination of the
+        data, checking for errors, and correcting them if possible. In some
+        contexts, this initial stage can take longer than the later analysis
+        stages.
+      </p>
+      <p class="noindent1">
+        A key concept in data cleaning is that of an
+        <em class="calibre10">outlier</em>. An outlier is a value that is very
+        different from the others, or from what is expected. It is way out in
+        the tail of a distribution. Sometimes such extreme values occur by
+        chance. For example, although most weather is fairly mild, we do get
+        occasional severe storms. But in other instances anomalies arise because
+        of the sorts of errors illustrated above, such as the anemometer which
+        apparently reported a sudden huge gust of wind every midnight,
+        coincidentally at the same time that it automatically reset its
+        calibration. So one good general strategy for detecting errors in data
+        is to look for outliers, which can then be checked by a human. These
+        might be outliers on single variables (e.g. the man with a reported age
+        of 210), or on multiple variables, neither of which is anomalous in
+        itself (e.g. the 5-year-old girl with 3 children).
+      </p>
+      <p class="noindent1">
+        Of course, outlier detection is not a universal solution to detecting
+        data errors. After all, errors can be made that lead to values which
+        appear perfectly normal. Someone’s sex may mistakenly be coded as male
+        instead of female. The best answer is to adopt data-entry practices that
+        minimize the number of errors. I say a little more about this below.
+      </p>
+      <p class="noindent1">
+        If an apparent error is detected, there is then the problem of what to
+        do about it. We could drop the value, regarding it as missing, and then
+        try to use one of the missing value procedures mentioned above.
+        Sometimes we can make an intelligent guess as to what the value should
+        have been. For example, suppose that, in recording the ages of a group
+        of students, one had obtained the string of
+        <a id="calibre_link-62"></a>values 18, 19, 17, 21, 23, 19, 210, 18, 18,
+        23. Studying these, we might think it likely that the 210 had been
+        entered into a wrong column, and that it should be 21. By the way, note
+        the phrase ‘intelligent guess’ used above. As with all statistical data
+        analysis, careful thought is crucial. It is not simply a question of
+        choosing a particular statistical method and letting the computer do the
+        work. The computer only does the arithmetic.
+      </p>
+      <p class="noindent1">
+        The example of student ages in the previous paragraph was very small,
+        just involving ten numbers, so it was easy to look through them,
+        identify the outlier, and make an intelligent guess about what it should
+        have been. But we are increasingly faced with larger and larger data
+        sets. Data sets of many billions of values are commonplace nowadays in
+        scientific applications (e.g. particle experiments), commercial
+        applications (e.g. telecommunications), and other areas. It will often
+        be quite infeasible to explore all the values manually. We have to rely
+        on the computer. Statisticians have developed automatic procedures for
+        detecting outliers, but these do not completely solve the problem.
+        Automatic procedures may raise flags about certain kinds of strange
+        values, but they will ignore peculiarities they have not been told
+        about. And then there is the question of what to do about an apparent
+        anomaly detected by the computer. This is fine if only 1 in those
+        billion numbers is flagged as suspicious, but what if 100,000 are so
+        flagged? Again, human examination and correction is impracticable. To
+        cope with such situations, statisticians have again developed automated
+        procedures. Some of the earliest such automated editing and correcting
+        methods were developed in the context of censuses and large surveys. But
+        they are not foolproof. The bottom line is, I am afraid, once again,
+        that statisticians cannot work miracles. Poor data risk yielding poor
+        (meaning inaccurate, mistaken, error-prone) results. The best strategy
+        for avoiding this is to ensure good-quality data from the start.
+      </p>
+      <p class="noindent1">
+        Many strategies have been developed for avoiding errors in data in the
+        first place. They vary according to the application domain and
+        <a id="calibre_link-106"></a>the mode of data capture. For example, when
+        clinical trial data are copied from hand-completed case record forms,
+        there is a danger of introducing errors in the transcription phase. This
+        is reduced by arranging for the exercise to be repeated twice, by
+        different people working independently, and then checking any
+        differences. When applying for a loan, the application data (e.g. age,
+        income, other debts, and so on) may be entered directly into a computer,
+        and interactive computer software can cross-check the answers as they
+        are given (e.g. if a house owner, do the debts include a mortgage?). In
+        general, forms should be designed so as to minimize errors. They should
+        not be excessively complicated, and all questions should be unambiguous.
+        It is obviously a good idea to conduct a small pilot survey to pick up
+        any problems with the data capture exercise before going live.
+      </p>
+      <p class="noindent1">
+        Incidentally, the phrase ‘computer error’ is a familiar one, and the
+        computer is a popular scapegoat when data mistakes are made. But the
+        computer is just doing what it is told, using the data provided. When
+        errors are made, it is not the computer’s fault.
+      </p>
+      <h3 class="h2">Observational versus experimental data</h3>
+      <p class="noindenta">
+        It is often useful to distinguish between
+        <em class="calibre10">observational</em> and
+        <em class="calibre10">experimental</em> studies, and similarly between
+        observational and experimental data. The word ‘observational’ refers to
+        situations in which one cannot interfere or intervene in the process of
+        capturing the data. Thus, for example, in a survey (see below) of
+        people’s attitudes to politicians, an appropriate sample of people would
+        be asked how they felt. Or, in a study of the properties of distant
+        galaxies, those properties would be observed and recorded. In both of
+        these examples, the researchers simply chose who or what to study and
+        then recorded the properties of those people or objects. There is no
+        notion of doing something to the people or galaxies before measuring
+        them. In contrast, in an experimental study the researchers would
+        actually manipulate the objects in some way. For example, in a clinical
+        trial they might expose <a id="calibre_link-66"></a>volunteers to a
+        particular medication, before taking the measurements. In a
+        manufacturing experiment to find the conditions which yield the
+        strongest finished product, they would try different conditions.
+      </p>
+      <p class="noindent1">
+        One fundamental difference between observational and experimental
+        studies is that experimental studies are much more effective at sorting
+        out what causes what. For example, we might conjecture that a particular
+        way of teaching children to read (method A, say) is much more effective
+        than another (method B). In an observational study, we will look at
+        children who have been taught by each method, and compare their reading
+        ability. But we will not be able to influence who is taught by method A
+        and who by method B; this is determined by someone else. This raises a
+        potential problem. It means that it is possible that there are other
+        differences between the two reading groups, as well as teaching method.
+        For example, to take an extreme illustration, a teacher may have
+        assigned all the faster learners to method A. Or perhaps the children
+        themselves were allowed to choose, and those already more advanced in
+        reading tended to choose method A. If we are a little more sophisticated
+        in statistics, we might use statistical methods to try to control for
+        any pre-existing differences between the children, as well as other
+        factors we think are likely to influence how quickly they would learn to
+        read. But there will always remain the possibility that there are other
+        influences we have not thought of which cause the difference.
+      </p>
+      <p class="noindent1">
+        Experimental studies overcome this possibility by deliberately choosing
+        which child is taught by each method. If we did know all the possible
+        factors, in addition to teaching method, which could influence reading
+        ability, we could make sure that the assignment to teaching method was
+        ‘balanced’. For example, if we thought that reading ability was
+        influenced by age, we could assign the same number of young children to
+        each method. By this means, any differences in reading ability arising
+        from age would have no <a id="calibre_link-121"></a>impact on the
+        difference between our two groups: if age did influence reading ability,
+        the impact would be the same in each group. However, as it happens,
+        experimental studies have an even more powerful way of choosing which
+        child receives which method, called
+        <em class="calibre10">randomization</em>. I discuss this below.
+      </p>
+      <p class="noindent1">
+        The upshot of this is that, in an experimental study we can be more
+        confident of the cause of any observed effect. In the experiment
+        comparing teaching reading, we can be more confident that any difference
+        between the reading ability in the two groups is a consequence of the
+        teaching method, rather than of some other factor.
+      </p>
+      <p class="noindent1">
+        Unfortunately it is not always possible to conduct experiments rather
+        than observational studies. We do not have much opportunity to expose
+        different galaxies to different treatments! In any case, sometimes it
+        would be misleading to use an experimental approach: in many social
+        surveys, the aim is to find out what the population is actually like,
+        not ‘what would be the effect if we did such and such’. However, if we
+        do want to know what would be the effect of a potential intervention,
+        then experimental studies are the better strategy. They are universal in
+        the pharmaceutical sector, very widespread in medicine and psychology,
+        ubiquitous in industry and manufacturing, and increasingly used to
+        evaluate social policy and in areas such as customer value management.
+      </p>
+      <p class="noindent1">
+        In general, when collecting data with the aim of answering or exploring
+        certain questions, the more data that are collected, the more accurate
+        an answer that can be obtained. This is a consequence of
+        <em class="calibre10">the law of large numbers</em>, discussed in
+        <a class="nounder" href="#calibre_link-1">Chapter 4</a>. But collecting
+        more data incurs greater cost. It is therefore necessary to strike a
+        suitable compromise between the amount of data collected and the cost of
+        collecting it. Various subdisciplines of statistics are central to this
+        exercise. In particular,
+        <em class="calibre10">experimental design</em> and
+        <em class="calibre10">survey sampling</em> are two key disciplines.
+      </p>
+      <h3 class="h2">
+        <a id="calibre_link-67" class="calibre5"></a>Experimental design
+      </h3>
+      <p class="noindenta">
+        We have already seen examples of very simple experiments. One of the
+        simplest is a two-group randomized clinical trial. Here the aim is to
+        compare two alternative treatments (A and B, say) so that we can say
+        which of the two should be given to a new patient. To explore this, we
+        give treatment A to one sample of patients, treatment B to another
+        sample of patients, and evaluate the treatments’ effectiveness. If, on
+        average, A beats B, then we will recommend that the new patient receives
+        treatment A. The meaning of the word ‘beats’ in the previous sentence
+        will depend on the precise study. It could mean ‘cures more patients’,
+        ‘extends average lifespan’, ‘yields greater average reduction in pain’,
+        and so on.
+      </p>
+      <p class="noindent1">
+        Now, as we have already noted above, if the two groups of patients
+        differ in some way, then the conclusions we can draw are limited. If
+        those who received treatment A were all male, and those who received
+        treatment B were all female, then we would not know if any difference
+        between the groups that we observed was due to the treatment or to the
+        sex difference: maybe females get better faster, regardless of
+        treatment. The same point applies to any other factor – age,
+        height, weight, duration of illness, previous treatment history, and so
+        on.
+      </p>
+      <p class="noindent1">
+        One strategy to alleviate this difficulty is to randomly allocate
+        patients to the two treatment groups. The strength of this approach is
+        that, while it does not guarantee balance (e.g., it is possible that
+        this random allocation procedure might lead to a substantially higher
+        proportion of males in one group than the other), basic rules of
+        probability (discussed in
+        <a class="nounder" href="#calibre_link-1">Chapter 4</a>) tell us that
+        large imbalances are extremely unlikely. In fact, it is possible to go
+        further than this and work out just how likely different degrees of
+        imbalance are. This in turn enables us to calculate how confident we
+        should be in our conclusions.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-87"></a>Moreover, if the random allocation is
+        <em class="calibre10">double blind</em>, there is no risk of
+        subconscious bias creeping into the allocation or the measurement of
+        patients. A study is double blind if neither the patient nor the doctor
+        conducting the trial knows which treatment the patient is receiving.
+        This can be achieved by making the tablets or medicines look identical,
+        and simply coding them as X or Y without indicating which of the
+        treatments is which. Only later, after the analysis has revealed that X
+        is better than Y, is the coding broken, to show that X is really
+        treatment A or B as the case may be.
+      </p>
+      <p class="noindent1">
+        The two-group randomized clinical trial is very simple, and has obvious
+        extensions: for example, we can immediately extend it to more than two
+        treatment groups. However, for the sake of variety, I shall switch
+        examples. A market gardener might want to know which of low and high
+        levels of water is better, in terms of producing greater crop yield. He
+        could conduct a simple two-group experiment, of the kind described
+        above, to determine this. Since we know that outcomes are not totally
+        predictable, he will want to expose more than one greenhouse to the low
+        level of water, and more than one to the high level, and then calculate
+        the average yields at each level. He might, for example, decide to use
+        four greenhouses for each level. This is precisely the same sort of
+        design as in the teaching methods study above.
+      </p>
+      <p class="noindent1">
+        But now suppose that the farmer also wants to know which of low and high
+        levels of fertilizer is more effective. The obvious thing to do is to
+        conduct another two-group experiment, this time with four greenhouses
+        receiving the low level of fertilizer and four receiving the high level.
+        This is all very well, but to answer both of the questions, the water
+        one and the fertilizer one, requires a total of sixteen greenhouses. If
+        the farmer is also interested in the effectiveness of low and high
+        levels of humidity, temperature, hours of sunlight, and so on, we see
+        that we will soon run out of greenhouses.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-68"></a>Now, there is a very clever way round this,
+        using the notion of a <em class="calibre10">factorial</em> experimental
+        design. Instead of carrying out two separate experiments, one for water
+        and one for fertilizer, the farmer can treat two greenhouses with
+        (fertilizer = low, water = low), two with (low, high), two with (high,
+        low), and two with (high, high). This requires just eight greenhouses,
+        and yet we are still treating four of them with the low water level and
+        four with the high water level, as well as four with the low fertilizer
+        level and four with the high fertilizer level, so that the results of
+        the analysis will be just as accurate as when we did two separate
+        experiments.
+      </p>
+      <p class="noindent1">
+        In fact, this factorial design (each of water and fertilizer is a
+        ‘factor’) has an additional attractive feature. It allows us to see if
+        the impact of the level of fertilizer is different at the two levels of
+        water: perhaps the difference between yields with the low and high
+        levels of fertilizer varies between the two levels of water. This
+        so-called <em class="calibre10">interaction</em> effect cannot be
+        examined in the two separate experiments approach.
+      </p>
+      <p class="noindent1">
+        This basic idea has been extended in many ways to yield very powerful
+        tools for obtaining accurate information for the minimum cost. When
+        combined with other experimental design tools, such as balance,
+        randomization, and controlling for known influences, some highly
+        sophisticated experimental designs have been developed.
+      </p>
+      <p class="noindent1">
+        Sometimes, in experiments, non-statistical issues are important. For
+        example, in clinical trials and other medical and social policy
+        investigations, ethical issues may be relevant. In a clinical trial
+        comparing a proposed new treatment against an (inactive) placebo, we
+        will know that half of the volunteer patients will receive something
+        which has no biological impact. Is that appropriate? Is there a danger
+        that those exposed to the proposed new treatment might suffer from side
+        effects? Such things have to be balanced against the fact that untold
+        numbers of future patients will benefit from what is learned in the
+        trial.
+      </p>
+      <h3 class="h2">
+        <a id="calibre_link-151" class="calibre5"></a>Survey sampling
+      </h3>
+      <p class="noindenta">
+        Imagine that, in order to run the country effectively, we wish to know
+        the average income of the one million employed men and women in a
+        certain town. In principle, we could determine this by asking each of
+        them what their income was, and averaging the results. In practice, this
+        would be extremely difficult, verging on the impossible. Apart from
+        anything else, over the course of the time taken to collect the data it
+        is likely that incomes would change: some people would have left or
+        changed their jobs, others would have received raises, and so on.
+        Furthermore, it would be extremely costly tracking down each person. We
+        might try to reduce costs by relying on the telephone, rather than face
+        to face interviews. However, as we have already seen, in the extreme
+        case of the 1936 US presidential election, there is a great risk that we
+        would miss important parts of the population.
+      </p>
+      <p class="noindent1">
+        What we need is some way to reduce the cost of collecting the data while
+        at the same time making the process quicker and, if possible, also more
+        accurate. Put this way, it probably sounds like a tall order, but
+        statistical ideas and tools that have these properties do exist. The key
+        idea is one we have met several times before: the notion of a sample.
+      </p>
+      <p class="noindent1">
+        Suppose that, instead of finding out what each of the one million
+        employees earned, we simply asked a thousand of them. Now clearly we
+        have to be careful about exactly which thousand we ask. The reasons are
+        essentially the same as when we were designing a simple two-group
+        experiment and had to take steps to ensure that the only difference
+        between the groups was that one received treatment A and one received
+        treatment B. Now we have to ensure that the particular thousand people
+        we approach are <em class="calibre10">representative</em> of the full
+        population of a million.
+      </p>
+      <p class="noindent1">
+        What do we mean by ‘representative’? Ideally, our sample of a thousand
+        should have the same proportion of men in it as the
+        <a id="calibre_link-69"></a>entire population, the same number of young
+        people, the same number of part-time workers, and so on. To some extent
+        we can ensure this, choosing the thousand so that the proportion of men
+        is correct, for example. But there is obviously a practical limit to
+        what we can deliberately balance in this way.
+      </p>
+      <p class="noindent1">
+        We saw how to handle this when we looked at experimental design. There
+        we tackled the difficulty by
+        <em class="calibre10">randomly allocating</em> patients to each group.
+        Here we tackle it by <em class="calibre10">randomly sampling</em> the
+        thousand people from the total population. Once again, while this does
+        not guarantee that the sample will be similar in composition to the
+        entire population, basic probability tells us that the chance of
+        obtaining a seriously dissimilar sample is very small. In particular, it
+        follows that the probability that our estimate of the average income,
+        derived from the sample, will be very different from the average income
+        in the entire population is very small. Indeed, two properties of
+        probability which we will explore later, the
+        <em class="calibre10">law of large numbers</em> and the
+        <em class="calibre10">Central Limit Theorem</em> also tell us that we
+        can make this probability as small as we like by increasing the sample
+        size. It turns out that what matters is not how large a fraction of the
+        population is included in the sample, but simply how large the sample
+        is. Our estimate, based on a sample size of one thousand, would
+        essentially be just as accurate if the entire population consisted of
+        ten million or ten billion people. Since sample size is directly related
+        to the cost of collecting the data, we now have an immediate
+        relationship between accuracy and cost: the larger our sample the
+        greater the cost but the smaller the probability of significant
+        deviation between the sample estimate and the overall population
+        average.
+      </p>
+      <p class="noindent1">
+        While ‘randomly sampling a thousand people from the population’ of
+        employed people in the town may sound like a simple exercise, in fact it
+        takes considerable care. We cannot, for example, simply choose the
+        thousand people from the largest employer in the town, since these may
+        not be representative of the overall million. Likewise, we cannot call
+        at a random sample of people’s homes at <a id="calibre_link-70"></a>8pm
+        in the evening, since we would miss those who worked late, and these
+        workers may differ in average income from the others. In general, to
+        ensure that our sample of a thousand is properly representative we need
+        a <em class="calibre10">sampling frame</em>, a list of all the one
+        million employed people in our population, from which we can randomly
+        choose a thousand. Having such a list ensures that everyone is equally
+        likely to be included.
+      </p>
+      <p class="noindent1">
+        This notion of <em class="calibre10">simple random sampling</em> is the
+        basic idea behind survey sampling. We draw up a sampling frame and from
+        it randomly choose the people to be included in our sample. We then
+        track them down (interview, phone, letter, email, or whatever) and
+        record the data we want. This basic idea has been elaborated in many
+        very sophisticated and advanced ways, yielding more accurate and cheaper
+        approaches. For example, if we intended to interview each of the
+        thousand respondents it could be quite costly in terms of time and
+        travel expenses. It would be better, from this perspective, to choose
+        respondents from small geographically local clusters.
+        <em class="calibre10">Cluster sampling</em> extends simple random
+        sampling by allowing this. Instead of randomly choosing a thousand
+        people from the entire population, it selects (say) ten groups of a
+        hundred people each, with the people in each group located near to each
+        other. Likewise, we can be certain that balance is achieved on some
+        factors, rather than simply relying on the random sampling procedure, if
+        we enforce the balance in the way we choose the sample. For example, we
+        could randomly choose a number of women from the population, and
+        separately randomly choose a number of men from the population, where
+        the numbers are chosen so that the proportions of males and females are
+        the same as in the population. This procedure is known as
+        <em class="calibre10">stratified sampling</em>, since it divides the
+        overall population listed in the sampling frame into strata (men and
+        women in this case). If the variable used for the stratification (sex in
+        this example) is strongly related to the variable we are interested in
+        (here, income), then this can yield improved accuracy for the same
+        sample size.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-88"></a>In general, in survey sampling, we are very
+        lucky if we obtain responses from everyone approached. Almost always
+        there is some non-response. We are back to the missing data problem
+        discussed earlier, and, as we have seen, missing data can lead to a
+        biased sample and incorrect conclusions. If those earning large salaries
+        refused to reply, then we would underestimate the average income in the
+        population. Because of this, survey experts have developed a wide range
+        of methods of minimizing and adjusting for non-response, including
+        repeated call-backs to non-responders and statistical reweighting
+        procedures.
+      </p>
+      <h3 class="h2">Conclusion</h3>
+      <p class="noindenta">
+        This chapter has described the raw material of statistics, the data.
+        Sophisticated data collection technologies have been developed by
+        statisticians to maximize the information obtained for the minimum cost.
+        But it would be naive to believe that perfect data can usually be
+        obtained. Data are a reflection of the real world, and the real world is
+        complicated. Recognizing this, statisticians have also developed tools
+        to cope with poor-quality data. But it is important to recognize that
+        statisticians are not magicians. The old adage of ‘garbage in, garbage
+        out’ is just as true in statistics as elsewhere.
+      </p>
+    </div>
+
+    <div class="calibre" id="calibre_link-17">
+      <h2 class="h1">
+        <a id="calibre_link-148" class="calibre5"></a><a id="calibre_link-1" class="calibre5"></a>Chapter 4<br class="calibre8"><strong class="calibre9">Probability</strong>
+      </h2>
+      <p class="blockquote">
+        Being a statistician means never having to say you are certain.
+      </p>
+      <p class="atribution">Anon</p>
+      <h3 class="h2">The essence of chance</h3>
+      <p class="noindenta">
+        One of the definitions of statistics given in
+        <a class="nounder" href="#calibre_link-8">Chapter 1</a> was that it is
+        the science of handling uncertainty. Since it is abundantly clear that
+        the world is full of uncertainty, this is one reason for the ubiquity of
+        statistical ideas and methods. The future is an unknown land and we
+        cannot be certain about what will happen. The unexpected does occur:
+        cars break down, we have accidents, lightning does strike, and, lest I
+        am giving the impression that such things are always bad, people do even
+        win lotteries. More prosaically, it is uncertain which horse will win
+        the race or which number will come up on the throw of a die. And, at the
+        end of it all, we cannot predict exactly how long our lives will be.
+      </p>
+      <p class="noindent1">
+        However, notwithstanding all that, one of the greatest discoveries
+        mankind has made is that there are certain principles covering chance
+        and uncertainty. Perhaps this seems like a contradiction in terms.
+        Uncertain events are, by their very nature, uncertain. How, then, can
+        there be natural laws governing such things?
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-141"></a>One answer is that while an individual
+        event may be uncertain and unpredictable, it is often possible to say
+        something about collections of events. A classic example is the tossing
+        of a coin. While I cannot say whether a coin will come up heads or tails
+        on a particular toss, I can say with considerable confidence that if I
+        toss the coin many times then around half of those times it will show
+        heads and around half tails. (I am assuming here that the coin is
+        ‘fair’, and that no sleight of hand is being used when tossing it.)
+        Another example in the same vein is whether a baby will be male or
+        female. It is, on conception, a purely chance and unpredictable event
+        which gender the child will become. But we know that over many births
+        just over a half will be male.
+      </p>
+      <p class="noindent1">
+        This observable property of nature is an example of one of the laws
+        governing uncertainty. It is called the
+        <em class="calibre10">law of large numbers</em> because of the fact that
+        the proportion gets closer and closer to a particular value (a half in
+        the cases of the fair coin and of babies’ gender) the more cases we
+        consider. This law has all sorts of implications, and is one of the most
+        powerful of statistical tools in taming, controlling, and allowing us to
+        take advantage of uncertainty. We return to it later in this chapter,
+        and repeatedly throughout the book.
+      </p>
+      <h3 class="h2">Understanding probability</h3>
+      <p class="noindenta">
+        So that we can discuss matters of uncertainty and unpredictability
+        without ambiguity, statistics, like any other scientific discipline,
+        uses a precise language: the language of
+        <em class="calibre10">probability</em>. If this is your first exposure
+        to the language of probability, then you should be warned that, as with
+        one’s first exposure to any new language, some effort will be required
+        to understand it. Indeed, bearing that in mind, you might find that this
+        chapter requires more than one reading: you might like to reread this
+        chapter once you have reached the end of the book.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-64"></a>Development of the language of probability
+        blossomed in the 17th century. Mathematicians such as Blaise Pascal,
+        Pierre de Fermat, Christiaan Huygens, Jacob Bernoulli, and later Pierre
+        Simon Laplace, Abraham De Moivre, Siméon-Denis Poisson, Antoine Cournot,
+        John Venn, and others laid its foundations. By the early 20th century,
+        all the ideas for a solid science of probability were in place, and in
+        1933 the Russian mathematician Andrei Kolmogorov presented a set of
+        axioms which provided a complete formal mathematical
+        <em class="calibre10">calculus</em> of probability. Since then, this
+        axiom system has been almost universally adopted.
+      </p>
+      <p class="noindent1">
+        Kolmogorov’s axioms provide the machinery by which to manipulate
+        probabilities, but they are a mathematical construction. To use this
+        construction to make statements about the real world, it is necessary to
+        say what the symbols in the mathematical machinery represent in that
+        world. That is, we need to say what the mathematics ‘means’.
+      </p>
+      <p class="noindent1">
+        The probability calculus assigns numbers between 0 and 1 to uncertain
+        events to represent the probability that they will happen. A probability
+        of 1 means that an event is certain (e.g. the probability that, if
+        someone looked through my study window while I was writing this book,
+        they would have seen me seated at my desk). A probability of 0 means
+        that an event is impossible (e.g., the probability that someone will run
+        a marathon in ten minutes). For an event that
+        <em class="calibre10">can</em> happen but is neither certain nor
+        impossible, a number between 0 and 1 represents its ‘probability’ of
+        happening.
+      </p>
+      <p class="noindent1">
+        One way of looking at this number is that it represents the
+        <em class="calibre10">degree of belief</em> an individual has that the
+        event will happen. Now, different people will have more or less
+        information relating to whether the event will happen, so different
+        people might be expected to have different degrees of belief, that is
+        different probabilities for the event. For this reason, this view of
+        probability <a id="calibre_link-127"></a>is called
+        <em class="calibre10">subjective</em> or
+        <em class="calibre10">personal</em> probability: it depends on who is
+        assessing the probability. It is also clear that someone’s probability
+        might change as more information becomes available. You might start with
+        a probability, a degree of belief, of 1/2 that a particular coin will
+        come up heads (based on your previous experience with other tossed
+        coins), but after observing 100 consecutive heads and no tails appear
+        you might become suspicious and change your subjective probability that
+        this coin will come up heads.
+      </p>
+      <p class="noindent1">
+        Tools have been developed to estimate individuals’ subjective
+        probabilities based on betting strategies, but, as with any measurement
+        procedure, there are practical limitations on how accurately
+        probabilities can be estimated.
+      </p>
+      <p class="noindent1">
+        A different view of the probability of an event is that it is the
+        proportion of times the event would happen if identical circumstances
+        were repeated an infinite number of times. The fair coin tossing example
+        above is an illustration. We have seen that, as the coin is tossed, so
+        the proportion of heads gets closer and closer to some specific value.
+        This value is defined as the probability that the coin will come up
+        heads on any single toss. Because of the role of frequencies, or counts,
+        in defining this interpretation of probability, it is called the
+        <em class="calibre10">frequentist</em> interpretation.
+      </p>
+      <p class="noindent1">
+        Just as with the subjective approach, there are practical limitations
+        preventing us from finding the exact frequentist probability. Two tosses
+        of a coin cannot really have
+        <em class="calibre10">completely</em> identical circumstances. Some
+        molecules will have worn from the coin in the first toss, air currents
+        will differ, the coin will have been slightly warmed by contact with the
+        fingers the first time. And in any case we have to stop tossing the coin
+        sometime, so we cannot actually toss it an infinite number of times.
+      </p>
+      <p class="noindent1">
+        These two different interpretations of what is meant by probability have
+        different properties. The subjective approach can be used to
+        <a id="calibre_link-128"></a>assign a probability to a unique event,
+        something about which it makes no sense to contemplate an infinite, or
+        even a large number of repetitions under identical circumstances. For
+        example, it is difficult to know what to make of the suggestion of an
+        infinite sequence of identical attempts to assassinate the next
+        president of the USA, with some having one outcome and some another. So
+        it seems difficult to apply the frequentist interpretation to such an
+        event. On the other hand, the subjective approach shifts probability
+        from being an objective property of the external world (like mass or
+        length) to being a property of the interaction between the observer and
+        the world. Subjective probability is, like beauty, in the eye of the
+        beholder. Some might feel that this is a weakness: it means that
+        different people could draw different conclusions from the same analysis
+        of the same data. Others might regard it as a strength: the conclusions
+        would have been influenced by your prior knowledge.
+      </p>
+      <p class="noindent1">
+        There are yet other interpretations of probability. The ‘classical’
+        approach, for example, assumes that all events are composed of a
+        collection of equally likely elementary events. For example, a throw of
+        a die might produce a 1, 2, 3, 4, 5, or 6 and the symmetry of the die
+        suggests these six outcomes are equally likely, so each has a
+        probability of 1/6 (they must sum to 1, since it is
+        <em class="calibre10">certain</em> that one of 1, 2, 3, 4, 5, or 6 will
+        come up). Then, for example, the probability of getting an even number
+        is the sum of the probabilities of each of the equally likely events of
+        getting a 2, a 4, or a 6, and is therefore equal to 1/2. In less
+        artificial circumstances, however, there are difficulties in deciding
+        what these ‘equally likely’ events are. For example, if I want to know
+        the probability that my morning journey to work will take less than one
+        hour, it is not at all clear what the equally likely elementary events
+        should be. There is no obvious symmetry in the situation, analogous to
+        that of the die. Moreover, there is the problem of the circular content
+        of the definition in requiring the elementary events to be ‘equally
+        likely’. We seem to be defining probability in terms of probability.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-138"></a>It is worth emphasizing here that all of
+        these different interpretations of probability conform to the same
+        axioms and are manipulated by the same mathematical machinery. It is
+        simply the mapping to the real world which differs; the definition of
+        what the mathematical object <em class="calibre10">means.</em> I
+        sometimes say that the <em class="calibre10">calculus</em> is the same,
+        but the <em class="calibre10">theory</em> is different. In statistical
+        applications, as we will see in
+        <a class="nounder" href="#calibre_link-18">Chapter 5</a>, the different
+        interpretations can sometimes lead to different conclusions being drawn.
+      </p>
+      <h3 class="h2">The laws of chance</h3>
+      <p class="noindenta">
+        We have already noted one law of probability, the law of large numbers.
+        This is a law linking the mathematics of probability to empirical
+        observations in the real world. Other laws of probability are implicit
+        in the axioms of probability. Some very important laws involve the
+        concept of <em class="calibre10">independence</em>.
+      </p>
+      <p class="noindent1">
+        Two events are said to be independent if the occurrence of one does not
+        affect the probability that the other will occur. The fact that a coin
+        tossed with my left hand comes up tails rather than heads does not
+        influence the outcome of a coin tossed with my right hand. These two
+        coin tosses are independent. If the probability is 1/2 that the coin in
+        my left hand will come up heads, and the probability is 1/2 that the
+        coin in my right hand will come up heads, then the probability that both
+        will come up heads is 1/2 × 1/2 = 1/4. This is easy to see since we
+        would expect that in many repetitions of the double tossing experiment
+        we would obtain about half of the left hand coins showing heads, and,
+        <em class="calibre10">amongst those</em>, about half of the right hand
+        coins would show heads because the outcome of the first toss does not
+        influence the second. Overall, then, about 1/4 of the double tosses
+        would show two heads. Similarly, about 1/4 would show left tails, right
+        heads, about 1/4 would show left heads, right tails, and about 1/4 would
+        show both left and right tails.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-103"></a>In contrast, the probability of falling
+        over in the street is certainly not independent of whether it has
+        snowed; these events are <em class="calibre10">dependent</em>. We saw
+        another example of dependent events in
+        <a class="nounder" href="#calibre_link-8">Chapter 1</a>: the tragic
+        Sally Clark case of two cot deaths in the same family. When events are
+        not independent, we cannot calculate the probability that both will
+        happen simply by multiplying together their separate probabilities.
+        Indeed, this was the mistake which lay at the root of the Sally Clark
+        case. To see this, let us take the most extreme situation of events
+        which are completely dependent: that is, when the outcome of one
+        <em class="calibre10">completely determines</em> the outcome of the
+        other. For example, consider a single toss of a coin, and the two events
+        ‘the coin faces heads up’ and ‘the coin faces tails down’. Each of these
+        events has a probability of a half: the probability that the coin will
+        show heads up is 1/2, and the probability that the coin will show tails
+        down is 1/2. But they are clearly not independent events. In fact, they
+        are completely dependent. After all, if the first event is true (heads
+        up) the second <em class="calibre10">must be</em> true (tails down).
+        Because they are completely dependent, the probability that they will
+        both occur is simply the probability that the first will occur – a
+        probability of a half. This is not what we get if we multiply the two
+        separate probabilities of a half together.
+      </p>
+      <p class="noindent1">
+        In general, dependence between two events means that the probability
+        that one will occur depends on whether or not the other has occurred.
+      </p>
+      <p class="noindent1">
+        Statisticians call the probability that two events will
+        <em class="calibre10">both</em> occur the
+        <em class="calibre10">joint probability</em> of those two events. For
+        example, we can speak of the joint probability that I will slip over
+        <em class="calibre10">and</em> that it snowed. The joint probability of
+        two events is closely related to the probability that an event will
+        occur <em class="calibre10">if</em> another one has occurred. This is
+        called the <em class="calibre10">conditional probability</em> –
+        the probability that one event will occur given that we know that the
+        other one has occurred. Thus we can talk of the conditional probability
+        that I will slip over, <em class="calibre10">given that</em> it snowed.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-81"></a>The (joint) probability that both events A
+        and B occur is simply the probability that A occurs times the
+        (conditional) probability that B occurs given that A occurs. The (joint)
+        probability that it snows and I slip over is the probability that it
+        snows times the (conditional) probability that I slip over if it has
+        snowed.
+      </p>
+      <p class="noindent1">
+        To illustrate, consider a single throw of a die, and two events. Event A
+        is that the number showing is divisible by 2, and Event B is that the
+        number showing is divisible by 3. The joint probability of these two
+        events A and B is the probability that I get a number which is both
+        divisible by 2 and is divisible by 3. This is just 1/6, since only one
+        of the numbers 1, 2, 3, 4, 5, and 6 is divisible by both 2 and 3. Now,
+        the conditional probability of B given A is the probability that I get a
+        number which is divisible by 3
+        <em class="calibre10">amongst those that are divisible by 2</em>. Well,
+        amongst all the numbers which are divisible by 2 (that is, amongst 2, 4,
+        or 6) only one is divisible by 3, so this conditional probability is
+        1/3. Finally, the probability of event A is 1/2 (half of the numbers 1,
+        2, 3, 4, 5, and 6 are divisible by 2). We therefore find that the
+        probability of A (1/2) times the (conditional) probability of B given A
+        (1/3) is 1/6. This is the same as the joint probability of obtaining a
+        number divisible by both 2 and 3; that is, the joint probability of
+        events A and B both occurring.
+      </p>
+      <p class="noindent1">
+        In fact, we previously met the concept of conditional probability in
+        <a class="nounder" href="#calibre_link-8">Chapter 1</a>, in the form of
+        the Prosecutor’s Fallacy. This pointed out that the probability of event
+        A occurring given that event B had occurred was not the same as the
+        probability of event B occurring given that event A had occurred. For
+        example, the probability that someone who runs a major corporation can
+        drive a car is not the same as the probability that someone who can
+        drive a car runs a major corporation. This leads us to another very
+        important law of probability:
+        <em class="calibre10">Bayes’s theorem</em> (or
+        <em class="calibre10">Bayes’s rule</em>). Bayes’s theorem allows us to
+        relate these two conditional probabilities, the conditional probability
+        of A given B and the conditional probability of B given A.
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-129"></a>We have just seen that the probability that
+        both events A and B will occur is equal to the probability that A will
+        occur, times the (conditional) probability that B will occur given that
+        A has occurred. But this can also be written the other way round: the
+        probability that both events A and B will occur is also equal to the
+        probability that B will occur times the probability that A will occur
+        given that B has occurred. All Bayes’s theorem says (though it is
+        usually expressed in a different way) is that these are simply two
+        alternative ways of writing the joint probability of A and B. That is,
+        the probability of A times the probability of B given A is equal to the
+        probability of B times the probability of A given B. Both are equal to
+        the joint probability of A and B. In our ‘car-driving corporate head’
+        example, Bayes’s theorem is equivalent to saying that the probability of
+        running a major corporation given that you can drive a car, times the
+        probability that you can drive a car, is equal to the probability that
+        you can drive a car given that you are a corporate head, times the
+        probability of being a corporate head. Both equal the joint probability
+        of being a corporate head <em class="calibre10">and</em> being able to
+        drive a car.
+      </p>
+      <p class="noindent1">
+        Another law of probability says that if either one of two events can
+        occur, but not both together, then the probability that one
+        <em class="calibre10">or</em> the other will occur is the sum of the
+        separate probabilities that each will occur. If I toss a coin, which
+        obviously cannot show heads and tails simultaneously, then the
+        probability that a head <em class="calibre10">or</em> tail will show is
+        the sum of the probability that a head will show and the probability
+        that a tail will show. If the coin is fair, each of these separate
+        probabilities is a half, so that the overall probability of a head or a
+        tail is 1. This makes sense: 1 corresponds to certainty and it is
+        certain that a head or a tail must show (I am assuming the coin cannot
+        end up on its edge!). Returning to our die-throwing example: the
+        probability of getting an even number was the sum of the probabilities
+        of getting one of 2, or 4, or 6, because none of these can occur
+        together (and there are no other ways of getting an even number on a
+        single throw of the die).
+      </p>
+      <h3 class="h2">
+        <a id="calibre_link-132" class="calibre5"></a>Random variables and their
+        distributions
+      </h3>
+      <p class="noindenta">
+        We saw, in <a class="nounder" href="#calibre_link-9">Chapter 2</a>, how
+        simple summary statistics may be used to extract information from a
+        large collection of values of some variable, condensing the collection
+        down so that a distribution of values could be easily understood. Now,
+        any real data set is limited in length – it can contain only a
+        finite number of values. This finite set might be the values of
+        <em class="calibre10">all</em> objects of the type we are considering
+        (e.g. the scores of all major league football players in a certain year)
+        or it might be the values of just some, a
+        <em class="calibre10">sample</em>, of the objects. We saw examples of
+        this when we looked at survey sampling.
+      </p>
+      <p class="noindent1">
+        A sample is a subset of the complete ‘population’ of values. In some
+        cases, the complete population is ill-defined, and possibly huge or even
+        infinite, so we have no choice but to work with a sample. For example,
+        in experiments to measure the speed of light, each time I take a
+        measurement I expect to get a slightly different value, simply due to
+        the inaccuracies of the measurement process. And I could, at least in
+        principle, go on taking measurements for ever; that is, the potential
+        population of measurements is infinite. Since this is impossible, I must
+        be content with a finite sample of measurements. Each of these
+        measurements will be drawn from the population of values I could
+        possibly have obtained. In other cases, the complete population is
+        finite. For example, in a study of obesity amongst males in a certain
+        town, the population is finite and, while in principle I might be able
+        to weigh every man in the town, in practice I would probably not want
+        to, and would work with a sample. Once again, each value in my sample is
+        drawn from the population of possible values.
+      </p>
+      <p class="noindent1">
+        In both of these examples, all I know before I take each measurement is
+        that it will have some value from the population of possible values.
+        Each value will occur with some probability, but I cannot pin it down
+        more than that, and I may not know what that probability is. I certainly
+        cannot say exactly what value I will <a id="calibre_link-118"></a>get in
+        the next speed of light measurement or what will be the weight of the
+        next man I measure. Similarly, in a throw of a die, I know that the
+        outcome can be 1, 2, 3, 4, 5, or 6, and here I know that these are
+        equally likely (my die is a perfect cube), but beyond that I cannot say
+        which will come up. Like the speed and weight measurements, the outcome
+        is random. For this reason such variables are called
+        <em class="calibre10">random variables</em>.
+      </p>
+      <p class="noindent1">
+        We have already met the concept of quantiles. For example, in the case
+        of percentiles, the 20<em class="calibre10">th</em> percentile of a
+        distribution is the value such that 20% of the data values are smaller,
+        the 8<em class="calibre10">th</em> percentile the value such that 8% of
+        the data values are smaller, and so on. In general, the
+        <em class="calibre10">k</em>th percentile has
+        <em class="calibre10">k</em>% of the sample values smaller than it. And
+        we can imagine similar percentiles defined, not merely for the sample we
+        have observed, but for the complete population of values we could have
+        observed. If we knew the 20<em class="calibre10">th</em> percentile for
+        the complete population of values, then we would know that a value
+        randomly taken from that population had a probability of 0.20 of being
+        smaller than this percentile. In general, if we knew
+        <em class="calibre10">all</em> the percentiles of a population, we would
+        know the probability of drawing a value in the bottom 10%, or 25%, or
+        16%, or 98%, or any other percentage we cared to choose. In a sense,
+        then, we would know everything about the distribution of possible values
+        which we could draw. We would not know what value would be drawn next,
+        but we would know the probability that it would be in the smallest 1% of
+        the values in the population, in the smallest 2%, and so on.
+      </p>
+      <p class="noindent1">
+        There is a name for the complete set of quantiles of a distribution. It
+        is called the
+        <em class="calibre10">cumulative probability distribution</em>. It is a
+        ‘probability distribution’ because it tells us the
+        <em class="calibre10">probability</em> of drawing a value lower than any
+        value we care to choose. And it is ‘cumulative’ because, obviously, the
+        probability of drawing a value less than some value
+        <em class="calibre10">x</em> gets larger the larger
+        <em class="calibre10">x</em> is. In the example of the weights of males,
+        if I know that the probability of choosing a man weighing less than 70kg
+        is 1/2, then I know that the <a id="calibre_link-149"></a>probability of
+        choosing a man weighing less than 80kg is more than 1/2 because I can
+        choose from all those weighing less than 70kg as well as those weighing
+        between 70kg and 80kg. At the limit, the probability of drawing a value
+        less than or equal to the largest value in the population is 1; it is a
+        certain event.
+      </p>
+      <p class="noindent1">
+        This idea is illustrated in
+        <a class="nounder" href="#calibre_link-19">Figure 2</a>. In this figure,
+        the values of the random variable (think of weight) are plotted on the
+        horizontal axis, and the probability of drawing smaller values is
+        plotted on the vertical axis. The curve shows, for any given value of
+        the random variable, the probability that a randomly chosen value will
+        be smaller than this given value.
+      </p>
+      <p class="image">
+        <a id="calibre_link-19"></a><img alt="Image" src="images/000002.jpg" class="calibre11">
+      </p>
+      <p class="caption">
+        <strong class="calibre4">2. A cumulative probability distribution</strong>
+      </p>
+      <p class="noindent1">
+        The cumulative probability distribution of a random variable tells us
+        the probability that a randomly chosen value will be
+        <em class="calibre10">less</em> than any given value. An alternative way
+        to look at things is to look at the probability that a randomly chosen
+        value will lie <em class="calibre10">between</em> any two given values.
+        Such probabilities are conveniently represented in terms of areas
+        between two values under a curve of the
+        <em class="calibre10">density</em> <a id="calibre_link-154"></a>of the
+        probability. For example,
+        <a class="nounder" href="#calibre_link-20">Figure 3</a>, shows such a
+        <em class="calibre10">probability density</em> curve, with the (shaded)
+        area under the curve between points <em class="calibre10">a</em> and
+        <em class="calibre10">b</em> giving the probability that a randomly
+        chosen value will fall between <em class="calibre10">a</em> and
+        <em class="calibre10">b</em>. Using such a curve for the distribution of
+        weights of men in our town, for example, we could find the probability
+        that a randomly chosen man would lie between 70kg and 80kg, or any other
+        pair of values, or above or below any value we wanted. In general,
+        randomly chosen values are more likely to occur in regions where the
+        probability is most dense; that is, where the probability density curve
+        is highest.
+      </p>
+      <p class="image">
+        <a id="calibre_link-20"></a><img alt="Image" src="images/000000.jpg" class="calibre11">
+      </p>
+      <p class="caption">
+        <strong class="calibre4">3. A probability density function</strong>
+      </p>
+      <p class="noindent1">
+        Note that the total area under the curve in
+        <a class="nounder" href="#calibre_link-20">Figure 3</a> must be 1,
+        corresponding to certainty: a randomly chosen value must have
+        <em class="calibre10">some</em> value.
+      </p>
+      <p class="noindent1">
+        Distribution curves for random variables have various shapes. The
+        probability that a randomly chosen woman will have a weight between 70kg
+        and 80kg will typically not be the same as the probability that a
+        randomly chosen man will have a weight
+        <a id="calibre_link-84"></a>between these two values. We might expect
+        the curve of the distribution of women’s weights to take larger values
+        at smaller weights than does the men’s curve.
+      </p>
+      <p class="noindent1">
+        Certain shapes have particular importance. There are various reasons for
+        this. In some cases, the particular shapes, or very close approximations
+        to them, arise in natural phenomena. In other cases, the distributions
+        arise as consequences of the laws of probability.
+      </p>
+      <p class="noindent1">
+        Perhaps the simplest of all distributions is the
+        <em class="calibre10">Bernoulli distribution</em>. This can take only
+        two values, one with probability <em class="calibre10">p</em>, say, and
+        the other with probability 1 − <em class="calibre10">p</em>. Since it
+        can take only two values, it is <em class="calibre10">certain</em> that
+        one or the other value will come up, so the probabilities of these two
+        outcomes have to sum to 1. We have already seen examples illustrating
+        why this distribution is useful: situations with only two outcomes are
+        very common – the coin toss, with outcomes head or tail, and
+        births, with outcomes male or female. In these two cases,
+        <em class="calibre10">p</em> had the value 1/2 or nearly 1/2. But a huge
+        number of other situations arise in which there are only two possible
+        outcomes: yes/no, good/bad, default or not, break or not, stop/go, and
+        so on.
+      </p>
+      <p class="noindent1">
+        The <em class="calibre10">binomial distribution</em> extends the
+        Bernoulli distribution. If we toss a coin three times, then we may
+        obtain no, one, two, or three heads. If we have three operators in a
+        call centre, responding independently to calls as they come in, then
+        none, one, two, or all three may be busy at any particular moment. The
+        binomial distribution tells us the probability that we will obtain each
+        of those numbers, 0, 1, 2, or 3. Of course, it applies more generally,
+        not just to the total from three events. If we toss a coin 100 times,
+        then the binomial distribution also tells us the probabilities that we
+        will obtain each of 0, 1, 2, …, 100 heads.
+      </p>
+      <p class="noindent1">
+        Emails arrive at my computer at random. On average, during a working
+        morning, about (say) five an hour arrive, but the number
+        <a id="calibre_link-91"></a>arriving in each hour can deviate from this
+        very substantially: sometimes ten arrive, occasionally none do. The
+        <em class="calibre10">Poisson distribution</em> can be used to describe
+        the probability distribution of the number of emails arriving in each
+        hour. It can tell us the probability (if emails arrive independently and
+        the overall rate at which they arrive is constant) that none will
+        arrive, that one will, that two will, and so on. This differs from the
+        binomial distribution because, at least in principle, there is no upper
+        limit on the number which could arrive in any hour. With the 100 coin
+        tosses, we could not observe more than 100 heads, but I could (on a very
+        bad day!) receive more than 100 emails in one hour.
+      </p>
+      <p class="noindent1">
+        So far, all the probability distributions I have described are for
+        <em class="calibre10">discrete</em> random variables. That is, the
+        random variables can take only certain values (two values in the
+        Bernoulli case, counts up to the number of coin tosses/operators in the
+        binomial case, the integers 0, 1, 2, 3, … in the Poisson case). Other
+        random variables are <em class="calibre10">continuous</em>, and can take
+        any value from some range. Height, for example, can (subject to the
+        accuracy of the measuring instrument) take any value within a certain
+        range, and is not restricted to, for example, 4′, 5′, or 6′.
+      </p>
+      <p class="noindent1">
+        If a random variable can take values only within some finite interval
+        (e.g. between 0 and 1) and if it is
+        <em class="calibre10">equally likely</em> that it will take any of the
+        values in that interval, then it is said to follow a
+        <em class="calibre10">uniform distribution</em>. For example, if the
+        postman always arrives between 10am and 11am, but in a totally
+        unpredictable way (he is as likely to arrive between 10:05 and 10:10 as
+        in any other five minute interval, for example), the distribution of his
+        arrival time within this interval would be uniform.
+      </p>
+      <p class="noindent1">
+        Some random variables can take any positive value; perhaps, for example,
+        the time duration of some phenomenon. As an illustration, consider how
+        long glass vases survive before getting broken. Glass vases do not age,
+        so it is no more likely that a particular favourite vase will be broken
+        in the next year, if it is <a id="calibre_link-82"></a>80 years old,
+        than that it will be broken in the next year, if it is only 10 years old
+        (all other things being equal). Contrast this with the probability that
+        an 80-year-old human will die next year compared with the probability
+        that a 10-year-old human will die next year. For a glass vase, if it has
+        not been smashed by time <em class="calibre10">t</em>, then the
+        probability that it will be smashed in the next instant is the same,
+        whatever the value of <em class="calibre10">t</em> (again, all other
+        things being equal). Lifetimes of glass vases are said to follow an
+        <em class="calibre10">exponential</em> distribution. In fact, there are
+        huge numbers of applications of exponential distributions, not merely to
+        the lifetimes of glass vases!
+      </p>
+      <p class="noindent1">
+        Perhaps the most famous of continuous distributions is the
+        <em class="calibre10">normal</em> or
+        <em class="calibre10">Gaussian distribution</em>. It is often loosely
+        described in terms of its general shape: ‘bell-shaped’, as shown in
+        <a class="nounder" href="#calibre_link-21">Figure 4</a>.
+      </p>
+      <p class="image">
+        <a id="calibre_link-21"></a><img alt="Image" src="images/000008.jpg" class="calibre11">
+      </p>
+      <p class="caption">
+        <strong class="calibre4">4. The normal distribution</strong>
+      </p>
+      <p class="noindent1">
+        <a id="calibre_link-92"></a>That means that values in the middle are
+        much more likely to occur than are values in the tails, far from the
+        middle. The normal distribution provides a good approximation to many
+        naturally occurring distributions. For example, the distribution of the
+        heights of a random sample of adult men follows a roughly normal
+        distribution.
+      </p>
+      <p class="noindent1">
+        The normal distribution also often crops up as a good model for the
+        shape of the distribution of sample statistics (like the summary
+        statistics described in
+        <a class="nounder" href="#calibre_link-9">Chapter 2</a>) when large
+        samples are involved. For example, suppose we repeatedly took random
+        samples from some distribution, and calculated the means of each of
+        these samples. Since each sample is different, we would expect each mean
+        to be different. That is, we would have a distribution of means. If each
+        sample is large enough, it turns out that this distribution of the means
+        is roughly normal.
+      </p>
+      <p class="noindent1">
+        In <a class="nounder" href="#calibre_link-9">Chapter 2</a>, I made the
+        point that statistics was not simply a collection of isolated tools, but
+        was a connected language. A similar point applies to probability
+        distributions. Although I have introduced them individually above, the
+        fact is that the Bernoulli distribution can be seen as a special case of
+        the binomial distribution (it is the binomial distribution when there
+        are only two possible outcomes). Likewise, although the mathematics
+        showing this is beyond this book, the Poisson distribution is an extreme
+        case of the binomial distribution, the Poisson distribution and
+        exponential distribution form a natural pair, the binomial distribution
+        becomes more and more similar to the normal distribution the larger the
+        maximum number of events, and so on. They are really all part of an
+        integrated mathematical whole.
+      </p>
+      <p class="noindent1">
+        I have described the distributions above by saying that they have
+        different shapes. In fact, these shapes can be conveniently described.
+        We saw that the Bernoulli distribution was characterized by a value
+        <em class="calibre10">p</em>. This told us the probability that we would
+        get a certain outcome. Different values of
+        <em class="calibre10">p</em> correspond to
+        <a id="calibre_link-136"></a>different Bernoulli distributions. We might
+        model the outcome of a coin toss by a Bernoulli distribution with
+        probability of heads, <em class="calibre10">p</em>, equal to a half, and
+        model the probability of a car crash on a single journey by a Bernoulli
+        distribution with <em class="calibre10">p</em> equal to some very small
+        value (I hope!). In such a situation, <em class="calibre10">p</em> is
+        called a <em class="calibre10">parameter</em>.
+      </p>
+      <p class="noindent1">
+        Other distributions are also characterized by parameters, serving the
+        same role of telling us exactly which member of a family of
+        distributions we are talking about. To see how, let us take a step back
+        and recall the law of large numbers. This says that if we make repeated
+        independent observations of an event which has outcome A with
+        probability <em class="calibre10">p</em> and outcome B with probability
+        1 − <em class="calibre10">p</em>, then we should expect the proportion
+        of times outcome A is observed to get closer and closer to
+        <em class="calibre10">p</em> the more observations we make. This
+        property generalizes in important ways. In particular, suppose that,
+        instead of observing an event which had only two possible outcomes, we
+        observed an event which could take any value from a distribution on a
+        range of values; perhaps any value in the interval [0,1], for example.
+        Suppose that we repeatedly took sets of
+        <em class="calibre10">n</em> measurements from such a distribution. Then
+        the law of large numbers also tells us that we should expect the mean of
+        the <em class="calibre10">n</em> measurements to get closer to some
+        fixed value, the larger <em class="calibre10">n</em> is. Indeed, we can
+        picture increasing <em class="calibre10">n</em> without limit, and in
+        that case it makes sense to talk about the mean of an unlimited sample
+        drawn from the distribution – and even the mean of the
+        distribution itself. For example, using this idea we can talk about not
+        simply the mean of ‘a sample drawn from an exponential distribution’,
+        but the mean of the exponential distribution itself. And, just as
+        different Bernoulli distributions will have different parameters
+        <em class="calibre10">p</em>, so different exponential distributions
+        will have different means. The mean, then, is a parameter for the
+        exponential distribution.
+      </p>
+      <p class="noindent1">
+        In an earlier example, we saw that the exponential distribution was a
+        reasonable model for the ‘lifetimes’ of glass vases (under certain
+        circumstances). Now we can imagine that we have two
+        <a id="calibre_link-98"></a>populations of such vases: one consisting of
+        solid vases made of very thick glass, and the other consisting of
+        delicate vases made of wafer-thin glass. Clearly, on average, glasses
+        from the former population are likely to survive longer than those from
+        the latter population. The two populations have different parameters.
+      </p>
+      <p class="noindent1">
+        We can define parameters for other distributions in a similar way: we
+        imagine calculating the summary statistics for samples of infinite size
+        drawn from the distributions. For example, we could imagine calculating
+        the means of infinitely large samples drawn from members of the normal
+        family of distributions. Things are a little more complicated here,
+        however, because the members of this family of distributions are not
+        uniquely identified by a single parameter. They require two parameters.
+        In fact, the mean and standard deviation of the distributions will do.
+        Together they serve to uniquely identify which member of the family we
+        are talking about.
+      </p>
+      <p class="noindent1">
+        The law of large numbers has been refined even further. Imagine drawing
+        many sets of values from some distribution, each set being of size
+        <em class="calibre10">n</em>. For each set calculate its mean. Then the
+        calculated means themselves are a sample from a distribution – the
+        distribution of possible values for the mean of a sample of size
+        <em class="calibre10">n</em>. The
+        <em class="calibre10">Central Limit Theorem</em> then tells us that the
+        distribution of these means itself approximately follows a normal
+        distribution, and that the approximation gets better and better the
+        larger the value of <em class="calibre10">n</em>. In fact, more than
+        this, it also tells us that the mean of this distribution of means is
+        identical to the mean of the overall population of values, and that the
+        variance of the distribution of means is only 1/<em class="calibre10">n</em>
+        times the size of the variance of the distribution of the overall
+        population. This turns out to be extremely useful in statistics, because
+        it implies that we can estimate a population mean as accurately as we
+        like, just by taking a large enough sample (taking
+        <em class="calibre10">n</em> large enough), with the Central Limit
+        Theorem telling us how large a sample we must take to achieve a high
+        probability of being that accurate. More generally, the principle that
+        we can get <a id="calibre_link-56"></a>better and better estimates by
+        taking larger samples is an immensely powerful one. We already saw one
+        way that this idea is used in practice when we looked at survey sampling
+        in <a class="nounder" href="#calibre_link-6">Chapter 3</a>.
+      </p>
+      <p class="noindent1">
+        Here is another example. In astronomy, distant objects are very faint,
+        and observations are complicated by random fluctuations in the signals.
+        However, if we take many pictures of the same object and superimpose
+        them, it is as if we are averaging many measurements of the same thing,
+        each measurement drawn from the same distribution but with some extra
+        random component. The laws of probability outlined above mean that the
+        randomness is averaged away, leaving a clear view of the underlying
+        signal – the astronomical object.
+      </p>
+</body>
+</html>
