@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='utf-8'?>
+<package xmlns="http://www.idpf.org/2007/opf" unique-identifier="uuid_id" version="2.0">
+    <metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:opf="http://www.idpf.org/2007/opf">
+        <dc:identifier opf:scheme="calibre" id="calibre_id">25d65907-72bb-47c2-8eaa-9dd410947b1c</dc:identifier>
+        <dc:identifier opf:scheme="uuid" id="uuid_id">25d65907-72bb-47c2-8eaa-9dd410947b1c</dc:identifier>
+        <dc:title>The Brain That Changes Itself</dc:title>
+        <dc:creator opf:file-as="Doidge, Norman" opf:role="aut">Norman Doidge</dc:creator>
+        <dc:contributor opf:file-as="calibre" opf:role="bkp">calibre (5.35.0) [https://calibre-ebook.com]</dc:contributor>
+        <dc:date>2010-02-28T18:30:00+00:00</dc:date>
+        <dc:description>&lt;p&gt;An astonishing new science called neuroplasticity is overthrowing the centuries-old notion that the human brain is immutable. Psychiatrist and psychoanalyst, Norman Doidge, M.D., traveled the country to meet both the brilliant scientists championing neuroplasticity and the people whose lives they've transformed&amp;#8212;people whose mental limitations or brain damage were seen as unalterable. We see a woman born with half a brain that rewired itself to work as a whole, blind people who learn to see, learning disorders cured, IQs raised, aging brains rejuvenated, stroke patients learning to speak, children with cerebral palsy learning to move with more grace, depression and anxiety disorders successfully treated, and lifelong character traits changed. Using these marvelous stories to probe mysteries of the body, emotion, love, sex, culture, and education, Dr. Doidge has written an immensely moving, inspiring book that will permanently alter the way we look at our brains, human...</dc:description>
+        <dc:publisher>Penguin Group USA, Inc.</dc:publisher>
+        <dc:rights>Copyright © Norman Doidge, 2007</dc:rights>
+        <dc:language>en</dc:language>
+        <meta name="calibre:author_link_map" content="{}"/>
+    </metadata>
+    <guide>
+        <reference type="cover" title="Cover" href="cover.jpg"/>
+    </guide>
+</package>
